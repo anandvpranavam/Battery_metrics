@@ -6,10 +6,17 @@ import os
 file_path = 'serial1.3-2025-10-22_09-35-11 - Second Charge.log'
 file_name = os.path.basename(file_path)
 print(file_name)
-file_year = file_name.split('-')[1]
-file_month = file_name.split('-')[2]
-file_date = file_name.split('-')[3].split('_')[0]
-file_date_part = file_year +'-'+ file_month +'-'+ file_date
+
+# --- Extract file date part ---
+# file_year = file_name.split('-')[1]
+# file_month = file_name.split('-')[2]
+# file_date = file_name.split('-')[3].split('_')[0]
+# file_date_part = file_year +'-'+ file_month +'-'+ file_date
+# print(file_date_part)
+
+parts = file_name.split('-', 1)
+# 2. Get the second part and slice the first 10 characters (the date)
+file_date_part = parts[1][:10]
 print(file_date_part)
 
 # Define column names based on your description
