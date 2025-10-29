@@ -1,6 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import os
+
+file_path = 'serial1.3-2025-10-22_09-35-11 - Second Charge.log'
+file_name = os.path.basename(file_path)
+print(file_name)
+file_year = file_name.split('-')[1]
+file_month = file_name.split('-')[2]
+file_date = file_name.split('-')[3].split('_')[0]
+file_date_part = file_year +'-'+ file_month +'-'+ file_date
+print(file_date_part)
 
 # Define column names based on your description
 column_names = ['raw_time', 'voltage', 'ampere', 'soc', 'unknown']
@@ -24,7 +34,7 @@ plt.figure(figsize=(12, 6))  # Sets the size of the plot (width, height in inche
 # plt.plot(x-axis, y-axis)
 plt.plot(df['time'], df['voltage'])
 # 3. Add labels and a title
-plt.title('Voltage Vs Time')
+plt.title('Voltage Vs Time - checked on - '+file_date_part)
 plt.xlabel('Time (HH:MM)')
 plt.ylabel('Voltage (V)')
 # 4. Add a grid for readability
@@ -37,6 +47,8 @@ ax = plt.gca()
 ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=30))
 # Set the format of the tick labels to show 'Hour:Minute'
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
+# SET Y-AXIS RANGE ---
+ax.set_ylim(30, 55)  # Sets the Y-axis from 30 to 55
 # Rotate x-axis labels for readability
 plt.xticks(rotation=45)
 plt.tight_layout() # Fits labels neatly in the figure
@@ -45,4 +57,4 @@ plt.tight_layout() # Fits labels neatly in the figure
 plt.show()
 
 # Save the plot
-plt.savefig('voltage_plot_30min_interval.png')
+plt.savefig('voltage_plot_'+file_date_part+'.png')
